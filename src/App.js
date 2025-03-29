@@ -1,85 +1,56 @@
+import React from 'react';
 import { useState, useEffect } from "react";
+import { BrowserRouter as Router, Routes, Route, useNavigate } from "react-router-dom";
+import YoutubeMonitor from "./Pages/YoutubeMonitor";
+import 'semantic-ui-css/semantic.min.css';
+import Card from "./components/Card";
+import { GridColumn, Grid, Header } from 'semantic-ui-react';
+import './index.css';
+import Comments from './Pages/Comments';
 
-export default function Main() {
-  const [tasks, setTasks] = useState([]);
-  const [title, setTitle] = useState("");
-  const [facts, setFacts] = useState([]);
+const Main = () => {
+  const navigate = useNavigate();
 
-  useEffect(() => {
-    fetch("http://localhost:9000/tasks")
-      .then((res) => res.json())
-      .then((data) => setTasks(data));
-  }, []);
-
-  const addTask = async () => {
-    if (!title.trim()) return;
-    const res = await fetch("http://localhost:9000/tasks", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ title }),
-    });
-    const newTask = await res.json();
-    setTasks([...tasks, newTask]);
-    setTitle("");
-  };
-
-  const removeTask = async (id) => {
-    await fetch(`http://localhost:9000/tasks/${id}`, {
-      method: "DELETE",
-      headers: { "Content-Type": "application/json" },
-    });
-    setTasks((prevTasks) => prevTasks.filter((task) => task._id !== id));
-  }
-
-  const changeTaskStatus = async (id) => {
-    const res = await fetch(`http://localhost:9000/tasks/${id}`, {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-    });
-    const updatedTask = await res.json(); 
-    setTasks((prevTasks) =>
-      prevTasks.map((task) =>
-        task._id === id ? { ...task, status: updatedTask.status } : task
-      )
-    );
-  }
-
-  const getCatFacts = async() => {
-    await fetch("http://localhost:9000/facts")
-    .then((res) => res.json())
-    .then((data) => setFacts(data));
+  const cardContent = {
+    "youtubeMonitor": {
+      header: "Monitor YouTube videos",
+      description: "Allows to monitor youtube videos by specific keywords in real time",
+      image:  "/images/YoutubeMonitor.jpg"
+    },
+    "seekYoutube": {
+      header: "Seek YouTube comments",
+      description: "Allows to check last 20 comments of your selected videos",
+      image:  "/images/SeekComments.jpg"
+    }
   }
 
   return (
-    <div>
-      <h1>My tasks</h1>
-      <input
-        value={title}
-        onChange={(e) => setTitle(e.target.value)}
-        placeholder="Enter task..."
-      />
-      <button onClick={addTask}>
-        Add Task
-      </button>
-
-      <ul>
-        <p>{ JSON.stringify(tasks) }</p>
-        {tasks.map((task) => (
-          <li key={task._id}>
-            {task.title} - <span>{task.status} </span>
-            <button onClick={() => changeTaskStatus(task._id)}>Mark as Done</button>
-            <span> </span>
-            <button onClick={() => removeTask(task._id)}>Remove task</button>
-          </li>
-        ))}
-      </ul>
-      
-      <button onClick={() => getCatFacts()}>Cat facts</button>
-      <ul>
-      {facts.map((item) => (
-        <li key={item.length}> {item.fact} </li>
-      ))}
-      </ul>
+    <div className="grid-container">
+      <div className="content">
+        <Header as="h2" className="main-title">Select Application</Header>
+        <Grid container columns={4}>
+          <GridColumn />
+          <GridColumn>
+            <Card onClick={() => navigate("/monitor")} content={cardContent["youtubeMonitor"]} />
+          </GridColumn>
+          <GridColumn>
+            <Card onClick={() => navigate("/comments")} content={cardContent["seekYoutube"]} />
+          </GridColumn>
+          <GridColumn />
+        </Grid>
+      </div>
     </div>
+  );
+};
+
+export default function App() {
+  return (
+    <Router>
+      <Routes>
+        <Route path="/" element={<Main />} />
+        <Route path="/monitor" element={<YoutubeMonitor />} />
+        <Route path="/comments" element={<Comments />} />
+      </Routes>
+    </Router>
   );
 }

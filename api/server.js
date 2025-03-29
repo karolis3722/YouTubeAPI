@@ -2,6 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const fetch = require("node-fetch");
+const searchYouTube = require("./routes/youtubeMonitor");
 
 const app = express();
 app.use(express.json());
@@ -44,6 +45,19 @@ app.get("/facts", async (req, res) => {
     const getFacts = await fetch("https://catfact.ninja/facts");
     const facts = await getFacts.json();
     res.status(201).json(facts.data);
-  });
+});
+
+
+app.get("/youtubeMonitor/:keywords", async (req, res) => {
+  const keywords = req.params.keywords;
+  try {
+    console.log("trying...");
+    const videos = await searchYouTube(keywords);
+    console.log("videos",videos);
+    res.status(200).json(videos);
+  } catch (error) {
+      res.status(500).json({ error: "Failed to fetch youtube API" });
+  }
+});
 
 app.listen(9000, () => console.log("Server running on port 9000"));
