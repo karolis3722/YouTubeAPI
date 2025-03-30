@@ -1,9 +1,8 @@
 const axios = require('axios');
-
-const API_KEY = "AIzaSyDD_robt37ryc4-PNN2_mstiN56S0Q46Lc";
+const API_KEY = process.env.YOUTUBE_API_KEY;
 const YOUTUBE_URL = "https://www.googleapis.com/youtube/v3/search";
 const INTERVAL = 60000;
-
+const AMOUNT = 9;
 let latestVideos = [];
 
 async function searchYouTube(keywords) {
@@ -14,7 +13,7 @@ async function searchYouTube(keywords) {
                 q: keywords,
                 type: "video",
                 order: "date",
-                maxResults: 9,
+                maxResults: AMOUNT,
                 key: API_KEY,
             },
         });

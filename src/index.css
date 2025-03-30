@@ -13,3 +13,9 @@
 .main-title {
   margin-bottom: 30px;
 }
+
+.comments-container {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}

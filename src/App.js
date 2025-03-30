@@ -1,12 +1,11 @@
 import React from 'react';
-import { useState, useEffect } from "react";
+import './index.css';
+import 'semantic-ui-css/semantic.min.css';
+import { GridColumn, Grid, Header } from 'semantic-ui-react';
 import { BrowserRouter as Router, Routes, Route, useNavigate } from "react-router-dom";
 import YoutubeMonitor from "./Pages/YoutubeMonitor";
-import 'semantic-ui-css/semantic.min.css';
 import Card from "./components/Card";
-import { GridColumn, Grid, Header } from 'semantic-ui-react';
-import './index.css';
-import Comments from './Pages/Comments';
+import SeekComments from './Pages/SeekComments';
 
 const Main = () => {
   const navigate = useNavigate();
@@ -49,7 +48,7 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Main />} />
         <Route path="/monitor" element={<YoutubeMonitor />} />
-        <Route path="/comments" element={<Comments />} />
+        <Route path="/comments" element={<SeekComments />} />
       </Routes>
     </Router>
   );
