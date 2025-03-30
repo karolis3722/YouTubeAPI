@@ -4,7 +4,6 @@ import {
   CardDescription,
   CardContent,
   Card,
-  Icon,
   Image,
 } from 'semantic-ui-react'
 

@@ -14,7 +14,7 @@ const YoutubeMonitor = () => {
   const fetchVideos = async(keywords) => {
       try {
         console.log("searchText",keywords);
-        const response = await fetch(`http://localhost:9000/youtubeMonitor/${keywords}`);
+        const response = await fetch(`http://localhost:9000/api/youtubeMonitor/${keywords}`);
         if (!response.ok) {
           throw new Error('Failed to fetch videos');
         }
@@ -44,22 +44,22 @@ const YoutubeMonitor = () => {
 
 
   return (
-    <div style={{ padding: '20px' }}>
-      <Container>
+    <div style={{ padding: '100px' }}>
+      <Container text>
         <Header as='h1' textAlign='center' style={{ marginBottom: '40px' }}>
           Monitor YouTube videos
         </Header>
         <Form size="large" onSubmit={handleSubmit}>
           <FormGroup widths='equal'>
             <FormField
-              label='Search keywords'
+              label='Search keywords:'
               control='input'
               placeholder='Search'
               value={keywords}
               onChange={(e) => setKeywords(e.target.value)}
             />
           </FormGroup>
-          <Button type='submit'>Submit</Button>
+          <Button type='submit' color='red'>Submit</Button>
           <Divider hidden />
         </Form>
         {videos.length > 0 && <VideosListGrid videos={videos} />}
