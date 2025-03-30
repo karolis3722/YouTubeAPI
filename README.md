@@ -19,7 +19,7 @@ Two applications stored here: <br />
 - Monitors newly uploaded youtube videos based on user provided keywords. List is being refreshed every 60 seconds.
 
 ## Seek YouTube comments
-![image](https://github.com/user-attachments/assets/9a1875b0-a954-4289-b419-baafc0a9a265)
+![image](https://github.com/user-attachments/assets/691cbc1e-c3c1-429c-a0bf-ceace31d2c35)
 - Searches for one or multiple YouTube videos by provided ID's.
 - Displays up to 20 newest comments of the video and stores them to database.
 - If the same video ID is provided within 24 hours, only the data from database is being displayed.
