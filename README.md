@@ -13,7 +13,7 @@ Two applications stored here: <br />
 - Monitor YouTube videos. <br />
 - Seek YouTube comments. <br />
 
-# Aplications
+# Applications
 ## Monitor YouTube videos
 ![image](https://github.com/user-attachments/assets/627c2d44-b7d2-4841-bcb7-7736d9b189df) <br />
 - Monitors newly uploaded youtube videos based on user provided keywords. List is being refreshed every 60 seconds.
